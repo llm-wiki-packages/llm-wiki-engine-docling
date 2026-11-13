@@ -38,6 +38,8 @@ def _reachable(host: str) -> bool:
     return True
 
 
+# The download and a CPU scan conversion each take minutes, past the root config's timeout.
+@pytest.mark.timeout(1800)
 def test_prepare_then_an_offline_conversion_finds_every_model(tmp_path):
     pdf = Path(os.environ.get(PDF_ENV) or SPIKE_SCAN)
     if not pdf.is_file():
