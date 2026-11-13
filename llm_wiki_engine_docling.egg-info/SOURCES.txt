@@ -1,9 +1,0 @@
-pyproject.toml
-llm_wiki_engine_docling/__init__.py
-llm_wiki_engine_docling/__main__.py
-llm_wiki_engine_docling.egg-info/PKG-INFO
-llm_wiki_engine_docling.egg-info/SOURCES.txt
-llm_wiki_engine_docling.egg-info/dependency_links.txt
-llm_wiki_engine_docling.egg-info/entry_points.txt
-llm_wiki_engine_docling.egg-info/requires.txt
-llm_wiki_engine_docling.egg-info/top_level.txt

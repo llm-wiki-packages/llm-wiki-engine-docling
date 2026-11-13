@@ -1,5 +1,0 @@
-llm-wiki-engine-kit
-docling[rapidocr]==2.148.0
-onnxruntime
-torch
-torchvision
