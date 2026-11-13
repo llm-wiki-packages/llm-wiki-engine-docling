@@ -1,0 +1,2 @@
+[console_scripts]
+llm-wiki-engine-docling = llm_wiki_engine_docling.__main__:main

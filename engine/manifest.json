@@ -1,0 +1,11 @@
+{
+  "kind": "engine",
+  "schema_version": 1,
+  "serves": ["convert"],
+  "accepts": [".pdf", ".png", ".jpg", ".jpeg", ".tif", ".tiff", ".docx", ".pptx", ".xlsx", ".html"],
+  "async": true,
+  "deadline_seconds": 86400,
+  "capabilities": ["ocr", "layout", "tables"],
+  "options": {"cpu_threads": 4},
+  "service": {"command": "llm-wiki-engine-docling"}
+}

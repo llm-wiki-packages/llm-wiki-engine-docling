@@ -1,0 +1,39 @@
+[project]
+name = "llm-wiki-engine-docling"
+version = "0.1.0"
+description = "Docling as an LLM-wiki extract engine: a jailed daemon that serves the engine request store"
+requires-python = ">=3.14,<3.15"
+# What the spike ran, not what the bare pin pulls. `docling==2.148.0` alone
+# pulls `docling-slim[standard]` with no onnxruntime, and Docling's
+# `[onnxruntime]` extra pulls `onnxruntime-gpu` on Linux. So onnxruntime is a
+# direct dependency, and torch comes from the CPU index below.
+dependencies = [
+    "llm-wiki-engine-kit",
+    "docling[rapidocr]==2.148.0",
+    "onnxruntime",
+    "torch",
+    "torchvision",
+]
+
+[project.scripts]
+llm-wiki-engine-docling = "llm_wiki_engine_docling.__main__:main"
+
+[dependency-groups]
+dev = ["pytest>=8,!=9.1.0,!=9.1.1", "pytest-timeout>=2"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["llm_wiki_engine_docling"]
+
+[tool.uv.sources]
+llm-wiki-engine-kit = { path = "../kit", editable = true }
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+torchvision = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
