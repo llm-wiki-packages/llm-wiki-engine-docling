@@ -17,12 +17,14 @@ installs it once, as a user service.
 
 The daemon is built on the engine kit,
 [llm-wiki-engine-kit](https://github.com/llm-wiki-packages/llm-wiki-engine-kit).
-`pyproject.toml` pins it to the commit of its release v0.1.0. The kit's
+`pyproject.toml` pins it to the commit of its release v0.1.1. The kit's
 README states the jail it builds and the request store it serves.
 
 ## Requirements
 
-- Linux. The user service refuses on macOS for now (llm-wiki-plugins #4770).
+- Linux or macOS. On macOS the user service is a launchd agent. It needs an
+  ops release that carries llm-wiki-plugins #4770; an older one refuses the
+  service on macOS.
 - `llm-wiki-cli` at ops 0.21.0 or later.
 - `nono` on `PATH`. The daemon refuses to run without it.
 - `uv`. It installs Python 3.14 for the tool (`.python-version`), because
@@ -39,7 +41,7 @@ Do these steps once per machine, on the host:
 1. Install the package. Packages pin a release tag:
 
    ```sh
-   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.2
+   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.3
    ```
 
    It installs the `llm-wiki-engine-docling` tool and links the `docling`
@@ -59,7 +61,9 @@ Do these steps once per machine, on the host:
    ```
 
    It downloads the models into `<data>/engines/docling/`, then writes and
-   starts the user unit `llm-wiki-engine-docling`.
+   starts the user unit `llm-wiki-engine-docling`. On macOS it is the
+   launchd agent `com.llm-wiki.engine.docling`, and its output goes to
+   `<state>/launchd/com.llm-wiki.engine.docling.err`.
 4. In each wiki that uses it, send scans to it in `.llm-wiki.local.toml`.
    `builtin` reads a PDF with a text layer, and a scan falls through to
    Docling:
@@ -79,7 +83,8 @@ Do these steps once per machine, on the host:
 
 What to expect:
 
-- The idle daemon holds about 450 MB.
+- The idle daemon holds about 450 MB before its first file. After a few
+  files it holds 1 to 1.6 GB, until the inner process recycles.
 - A conversion holds about 2.3 GB at the default `cpu_threads = 4`.
 - The first file after a start also loads the models, so it takes longer.
 
