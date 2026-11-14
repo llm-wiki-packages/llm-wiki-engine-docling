@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "llm-wiki-engine-docling",
   "repository": "llm-wiki-packages/llm-wiki-engine-docling",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Docling as a local extract engine: scans, page layout and tables on the CPU, served by a jailed daemon.",
   "license": "MIT",
   "min_ops_version": "0.21.0",

@@ -17,7 +17,7 @@ installs it once, as a user service.
 
 The daemon is built on the engine kit,
 [llm-wiki-engine-kit](https://github.com/llm-wiki-packages/llm-wiki-engine-kit).
-`pyproject.toml` pins it to the commit of its release v0.1.1. The kit's
+`pyproject.toml` pins it to the commit of its release v0.2.0. The kit's
 README states the jail it builds and the request store it serves.
 
 ## Requirements
@@ -41,7 +41,7 @@ Do these steps once per machine, on the host:
 1. Install the package. Packages pin a release tag:
 
    ```sh
-   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.3
+   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.2.0
    ```
 
    It installs the `llm-wiki-engine-docling` tool and links the `docling`
