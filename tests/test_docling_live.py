@@ -92,8 +92,9 @@ def test_the_jailed_daemon_answers_a_text_pdf_and_a_scan(data, live):
                     pytest.fail(f"no answer for {pdf.name} after {WAIT}s")
                 time.sleep(1)
             print(f"{pdf.name}: answered {time.monotonic() - started:.1f}s after the start")
-        children = Path(f"/proc/{proc.pid}/task/{proc.pid}/children").read_text(encoding="utf-8").split()
-        assert [Path(f"/proc/{one}/comm").read_text(encoding="utf-8").strip() for one in children] == ["nono"]
+        children = subprocess.run(["pgrep", "-P", str(proc.pid)], capture_output=True, text=True).stdout.split()
+        names = [subprocess.run(["ps", "-o", "comm=", "-p", one], capture_output=True, text=True).stdout for one in children]
+        assert [Path(name.strip()).name for name in names] == ["nono"]
     finally:
         os.killpg(proc.pid, signal.SIGTERM)
         proc.communicate(timeout=60)
