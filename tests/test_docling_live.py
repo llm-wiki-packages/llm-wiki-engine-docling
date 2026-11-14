@@ -46,7 +46,15 @@ def _folder(store: Path, pdf: Path) -> Path:
 
 
 @pytest.fixture
-def data(tmp_path):
+def corpus():
+    """Skips before `data` downloads the models: a missing document costs no 730 MB fetch."""
+    for pdf in (TEXT_PDF, SCAN_PDF):
+        if not pdf.is_file():
+            pytest.skip(f"no spike corpus file at {pdf}")
+
+
+@pytest.fixture
+def data(tmp_path, corpus):
     named = os.environ.get(DATA_ENV)
     if named:
         return Path(named)
@@ -69,9 +77,6 @@ def live():
 # Two CPU conversions, the first loading every model, past the root config's timeout.
 @pytest.mark.timeout(WAIT + 120)
 def test_the_jailed_daemon_answers_a_text_pdf_and_a_scan(data, live):
-    for pdf in (TEXT_PDF, SCAN_PDF):
-        if not pdf.is_file():
-            pytest.skip(f"no spike corpus file at {pdf}")
     store = live / "store"
     folders = {pdf: _folder(store, pdf) for pdf in (TEXT_PDF, SCAN_PDF)}
     argv = [sys.executable, "-m", "llm_wiki_engine_docling", "serve", "--store", str(store)]

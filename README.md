@@ -37,7 +37,7 @@ Do these steps once per machine, on the host:
 1. Install the package. Packages pin a release tag:
 
    ```sh
-   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.0
+   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.1
    ```
 
    It installs the `llm-wiki-engine-docling` tool and links the `docling`
