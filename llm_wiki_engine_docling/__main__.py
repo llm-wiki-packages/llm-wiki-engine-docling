@@ -140,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
     ready = commands.add_parser("prepare", help="download the models the converter uses (network, unjailed)")
     ready.add_argument("--data", required=True, help="<data>/engines/docling")
     run = commands.add_parser("serve", help="answer the docling request store, jailed")
-    run.add_argument("--store", required=True, help="<state>/engine-requests/docling")
+    run.add_argument("--store", required=True, help="the engine's request store: <state>/engine-requests/docling, or its machine-config request_store")
     run.add_argument("--cache", required=True, help="<cache>/engines/docling; the scratch is its tmp/")
     run.add_argument("--data", required=True, help="<data>/engines/docling, as prepare filled it")
     run.add_argument("--options", default="{}", help="the engine's options as one JSON object")

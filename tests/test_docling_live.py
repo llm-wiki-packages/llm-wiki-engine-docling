@@ -36,7 +36,8 @@ pytestmark = pytest.mark.skipif(os.environ.get(ENABLE_ENV) != "1", reason=f"set 
 
 
 def _folder(store: Path, pdf: Path) -> Path:
-    folder = store / uuid.uuid4().hex
+    # The request store holds one folder per submitting machine, then one per 64-hex request key.
+    folder = store / "box-a" / hashlib.sha256(uuid.uuid4().bytes).hexdigest()
     folder.mkdir(parents=True)
     shutil.copyfile(pdf, folder / "body.pdf")
     sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
@@ -101,4 +102,7 @@ def test_the_jailed_daemon_answers_a_text_pdf_and_a_scan(data, live):
     for pdf, folder in folders.items():
         assert json.loads((folder / "result.json").read_text(encoding="utf-8"))["reason"] is None, pdf.name
         assert (folder / "output.md").read_text(encoding="utf-8").strip(), pdf.name
+        outputs = json.loads((folder / "result.json").read_text(encoding="utf-8"))["outputs"]
+        written = (folder / "output.md").read_bytes()
+        assert outputs["output.md"] == {"sha256": hashlib.sha256(written).hexdigest(), "size": len(written)}, pdf.name
     assert SCAN_LINE in (folders[SCAN_PDF] / "output.md").read_text(encoding="utf-8")
