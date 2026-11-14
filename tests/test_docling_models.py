@@ -1,8 +1,8 @@
 """`prepare` fetches every model the converter uses: a conversion after it runs with the hub offline.
 
-By hand only, from the engine's own venv; no suite collects this tree, because no suite has Docling:
+By hand only, from the repo root, in the engine's own venv:
 
-    LLM_WIKI_TEST_DOCLING=1 uv run --project llm-wiki-engines/docling pytest llm-wiki-engines/docling/tests
+    LLM_WIKI_TEST_DOCLING=1 uv run pytest -s tests
 """
 
 import os

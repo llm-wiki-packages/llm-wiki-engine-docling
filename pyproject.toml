@@ -8,8 +8,9 @@ requires-python = ">=3.14,<3.15"
 # `[onnxruntime]` extra pulls `onnxruntime-gpu` on Linux. So onnxruntime is a
 # direct dependency, and torch comes from the CPU index below. Every heavy pin
 # is exact: `uv tool install` reads no lock, so this file is the only pin.
+# The kit is pinned to one commit of simple10/llm-wiki-plugins, where it lives.
 dependencies = [
-    "llm-wiki-engine-kit",
+    "llm-wiki-engine-kit @ git+https://github.com/simple10/llm-wiki-plugins@a9c287ef39e98ee1b04e1545f562742368b8c861#subdirectory=llm-wiki-engines/kit",
     "docling[rapidocr]==2.148.0",
     "onnxruntime==1.31.1",
     "torch==2.15.0",
@@ -29,8 +30,11 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 packages = ["llm_wiki_engine_docling"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+timeout = 300
+
 [tool.uv.sources]
-llm-wiki-engine-kit = { path = "../kit", editable = true }
 torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
 torchvision = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
 

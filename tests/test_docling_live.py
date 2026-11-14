@@ -1,8 +1,8 @@
 """The Docling daemon, jailed, answers a text PDF and a scan from the spike corpus through a real request store.
 
-By hand only, from the engine's own venv; no suite collects this tree:
+By hand only, from the repo root, in the engine's own venv:
 
-    LLM_WIKI_TEST_DOCLING=1 uv run --project llm-wiki-engines/docling pytest -s llm-wiki-engines/docling/tests
+    LLM_WIKI_TEST_DOCLING=1 uv run pytest -s tests
 
 `LLM_WIKI_TEST_DOCLING_DATA` names a data directory `prepare` already filled (`<data>/engines/docling`), and skips
 the download. Unset, the test runs `prepare` first, on the network.
@@ -29,7 +29,7 @@ SCAN_PDF = CORPUS / "synth" / "scanned-Copyright_Permissions_Table_--6dc40c82.pd
 # A row of the scanned table: only OCR and the table model put it in the text.
 SCAN_LINE = "Students Walking on Campus"
 # Outside the temp dir, which nono's default groups grant write on.
-LIVE_ROOT = Path.home() / ".cache" / "llm-wiki-next-live"
+LIVE_ROOT = Path.home() / ".cache" / "llm-wiki-engine-docling-test"
 WAIT = 1500
 
 pytestmark = pytest.mark.skipif(os.environ.get(ENABLE_ENV) != "1", reason=f"set {ENABLE_ENV}=1 to run Docling")
