@@ -15,9 +15,10 @@ The engine is async. The CLI submits a file to the machine's request store,
 and the daemon answers it. The CLI never starts the daemon. The operator
 installs it once, as a user service.
 
-The daemon is built on the engine kit, `llm-wiki-engine-kit`. The kit lives
-in `simple10/llm-wiki-plugins` at `llm-wiki-engines/kit/`.
-`pyproject.toml` pins it to one commit there.
+The daemon is built on the engine kit,
+[llm-wiki-engine-kit](https://github.com/llm-wiki-packages/llm-wiki-engine-kit).
+`pyproject.toml` pins it to the commit of its release v0.1.0. The kit's
+README states the jail it builds and the request store it serves.
 
 ## Requirements
 
@@ -26,7 +27,8 @@ in `simple10/llm-wiki-plugins` at `llm-wiki-engines/kit/`.
 - `nono` on `PATH`. The daemon refuses to run without it.
 - `uv`. It installs Python 3.14 for the tool (`.python-version`), because
   onnxruntime 1.31.1 has no wheel for a later Python.
-- Read access to `simple10/llm-wiki-plugins` from git, for the kit.
+- `git` and network access to github.com, for the kit. The kit's repo is
+  public, so no GitHub credentials are needed.
 
 The tool's venv is about 1.5 GB. The models are about 730 MB.
 
@@ -37,7 +39,7 @@ Do these steps once per machine, on the host:
 1. Install the package. Packages pin a release tag:
 
    ```sh
-   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.1
+   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.1.2
    ```
 
    It installs the `llm-wiki-engine-docling` tool and links the `docling`

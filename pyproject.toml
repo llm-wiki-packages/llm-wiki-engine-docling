@@ -1,6 +1,6 @@
 [project]
 name = "llm-wiki-engine-docling"
-version = "0.1.1"
+version = "0.1.2"
 description = "Docling as an LLM-wiki extract engine: a jailed daemon that serves the engine request store"
 requires-python = ">=3.14,<3.15"
 # What the spike ran, not what the bare pin pulls. `docling==2.148.0` alone
@@ -8,9 +8,10 @@ requires-python = ">=3.14,<3.15"
 # `[onnxruntime]` extra pulls `onnxruntime-gpu` on Linux. So onnxruntime is a
 # direct dependency, and torch comes from the CPU index below. Every heavy pin
 # is exact: `uv tool install` reads no lock, so this file is the only pin.
-# The kit is pinned to one commit of simple10/llm-wiki-plugins, where it lives.
+# The kit is pinned to the commit of its release tag v0.1.0: a tag can move,
+# a commit cannot. Its repo is public, so the install needs no GitHub login.
 dependencies = [
-    "llm-wiki-engine-kit @ git+https://github.com/simple10/llm-wiki-plugins@a9c287ef39e98ee1b04e1545f562742368b8c861#subdirectory=llm-wiki-engines/kit",
+    "llm-wiki-engine-kit @ git+https://github.com/llm-wiki-packages/llm-wiki-engine-kit@31e4c5a640f02d1ee826d8e54a20537c5ae9698c",
     "docling[rapidocr]==2.148.0",
     "onnxruntime==1.31.1",
     "torch==2.15.0",
