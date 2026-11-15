@@ -1,6 +1,6 @@
 [project]
 name = "llm-wiki-engine-docling"
-version = "0.2.0"
+version = "0.3.0"
 description = "Docling as an LLM-wiki extract engine: a jailed daemon that serves the engine request store"
 requires-python = ">=3.14,<3.15"
 # What the spike ran, not what the bare pin pulls. `docling==2.148.0` alone

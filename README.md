@@ -25,7 +25,7 @@ README states the jail it builds and the request store it serves.
 - Linux or macOS. On macOS the user service is a launchd agent. It needs an
   ops release that carries llm-wiki-plugins #4770; an older one refuses the
   service on macOS.
-- `llm-wiki-cli` at ops 0.21.0 or later.
+- `llm-wiki-cli` at ops 0.22.0 or later. An older one refuses this release.
 - `nono` on `PATH`. The daemon refuses to run without it.
 - `uv`. It installs Python 3.14 for the tool (`.python-version`), because
   onnxruntime 1.31.1 has no wheel for a later Python.
@@ -41,7 +41,7 @@ Do these steps once per machine, on the host:
 1. Install the package. Packages pin a release tag:
 
    ```sh
-   llm-wiki-cli machine install llm-wiki-packages/llm-wiki-engine-docling@v0.2.0
+   llm-wiki-cli machine packages install llm-wiki-packages/llm-wiki-engine-docling@v0.3.0
    ```
 
    It installs the `llm-wiki-engine-docling` tool and links the `docling`
@@ -57,7 +57,7 @@ Do these steps once per machine, on the host:
 3. Install the daemon:
 
    ```sh
-   llm-wiki-cli machine engines service install docling
+   llm-wiki-cli machine services install engine/docling
    ```
 
    It downloads the models into `<data>/engines/docling/`, then writes and
@@ -91,7 +91,7 @@ What to expect:
 To change the threads, set `[engines.docling.options] cpu_threads = <n>` in
 the machine config. Then run step 3 again: the unit carries the options.
 
-To remove the daemon, run `llm-wiki-cli machine engines service remove docling`.
+To remove the daemon, run `llm-wiki-cli machine services remove engine/docling`.
 
 ## What the jail guarantees
 
